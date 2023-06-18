@@ -35,7 +35,7 @@ app.use('/', express.static(path.join(__dirname, 'public')))
 
 app.use(bodyParser.json({limit: '50mb'}));
 app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
-
+app.use(cors(corsOptions))
 app.use(express.json())
 
 app.use((req, res, next) => {
@@ -43,7 +43,7 @@ app.use((req, res, next) => {
     next()
 })
 
-app.use(cors(corsOptions))
+
 app.use(
 	cookieSession({
 		name: "session",
