@@ -17,6 +17,7 @@ const allClientsRoutes = require('./routes/allClientsRoutes')
 const allBlogRoutes = require('./routes/allBlogRoutes')
 const blogRoutes = require('./routes/blogRoutes')
 const commentRoutes = require('./routes/commentRoutes')
+const root = require('./routes/root')
 const bodyParser = require('body-parser');
 const path = require('path')
 
@@ -73,6 +74,7 @@ app.use(passport.session());
 
 //Routes
 
+app.use('/', root)
 app.use('/api/messages' , messageRoutes)
 app.use("/auth", authRoute);
 app.use('/api/user', userRoutes)
