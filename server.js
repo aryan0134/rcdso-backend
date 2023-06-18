@@ -20,6 +20,7 @@ const commentRoutes = require('./routes/commentRoutes')
 const root = require('./routes/root')
 const bodyParser = require('body-parser');
 const path = require('path')
+const corsOptions = require('./corsOptions')
 
 // Express App
 
@@ -42,7 +43,7 @@ app.use((req, res, next) => {
     next()
 })
 
-
+app.use(cors(corsOptions))
 app.use(
 	cookieSession({
 		name: "session",
@@ -50,15 +51,15 @@ app.use(
 		maxAge: 24 * 60 * 60 * 100,
 	})
 );
- app.use((req, res, next) => {
-    res.setHeader("Access-Control-Allow-Origin", "https://www.rcdso.in/");
-    res.setHeader('Access-Control-Allow-Credentials', true);
-    res.header(
-      "Access-Control-Allow-Headers",
-      "Origin, X-Requested-With, Content-Type, Accept"
-    );
-    next();
-  });
+ // app.use((req, res, next) => {
+ //    res.setHeader("Access-Control-Allow-Origin", "https://www.rcdso.in/");
+ //    res.setHeader('Access-Control-Allow-Credentials', true);
+ //    res.header(
+ //      "Access-Control-Allow-Headers",
+ //      "Origin, X-Requested-With, Content-Type, Accept"
+ //    );
+ //    next();
+ //  });
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -77,13 +78,13 @@ app.use('/api/blogs', blogRoutes)
 app.use('/api/allblogs', allBlogRoutes)
 app.use('/api/comments', commentRoutes)
 
-app.use(
-	cors({
-		origin: "https://www.rcdso.in/",
-		methods: "GET,POST,PUT,DELETE",
-		credentials: true
-	})
-);
+// app.use(
+// 	cors({
+// 		origin: "https://www.rcdso.in/",
+// 		methods: "GET,POST,PUT,DELETE",
+// 		credentials: true
+// 	})
+// );
 
 app.all('*', (req, res) => {
     res.status(404)
