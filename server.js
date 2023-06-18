@@ -85,7 +85,7 @@ app.use(
 
 mongoose.connect(db)
     .then(()=>{
-        app.listen(https://rcdso-backend.onrender.com/, ()=> {
+        app.listen(port, ()=> {
             console.log('connection to mongoDB has been established successfully on port ', port)
         })
     })
