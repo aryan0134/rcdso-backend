@@ -59,7 +59,7 @@ app.use(
 	})
 );
  app.use((req, res, next) => {
-    res.setHeader("Access-Control-Allow-Origin", "https://localhost:3001");
+    res.setHeader("Access-Control-Allow-Origin", "https://rcdso-frontend.vercel.app/");
     res.setHeader('Access-Control-Allow-Credentials', true);
     res.header(
       "Access-Control-Allow-Headers",
@@ -86,7 +86,7 @@ app.use('/api/comments', commentRoutes)
 
 app.use(
 	cors({
-		origin: "https://localhost:3001",
+		origin: "https://rcdso-frontend.vercel.app/",
 		methods: "GET,POST,PUT,DELETE",
 		credentials: true
 	})
