@@ -48,7 +48,7 @@ app.use(
 	})
 );
  app.use((req, res, next) => {
-    res.setHeader("Access-Control-Allow-Origin", "https://rcdso-frontend.vercel.app/");
+    res.setHeader("Access-Control-Allow-Origin", "https://rcdso-frontend.vercel.app");
     res.setHeader('Access-Control-Allow-Credentials', true);
     res.header(
       "Access-Control-Allow-Headers",
