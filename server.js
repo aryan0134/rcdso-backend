@@ -18,14 +18,25 @@ const allBlogRoutes = require('./routes/allBlogRoutes')
 const blogRoutes = require('./routes/blogRoutes')
 const commentRoutes = require('./routes/commentRoutes')
 const bodyParser = require('body-parser');
+const path = require('path')
 
 // Express App
 
 const app=express()
 const db = process.env.DATABASE
 const port = process.env.PORT
-app.set('env', process.env.NODE_ENV || 'development');
-app.use(express.static('public'));
+app.use('/', express.static(path.join(__dirname, 'public')))
+
+app.all('*', (req, res) => {
+    res.status(404)
+    if (req.accepts('html')) {
+        res.sendFile(path.join(__dirname, 'views', '404.html'))
+    } else if (req.accepts('json')) {
+        res.json({ message: '404 Not Found' })
+    } else {
+        res.type('txt').send('404 Not Found')
+    }
+})
 
 //Middleware
 
@@ -48,7 +59,7 @@ app.use(
 	})
 );
  app.use((req, res, next) => {
-    res.setHeader("Access-Control-Allow-Origin", "http://localhost:3001");
+    res.setHeader("Access-Control-Allow-Origin", "https://rcdso-frontend.vercel.app");
     res.setHeader('Access-Control-Allow-Credentials', true);
     res.header(
       "Access-Control-Allow-Headers",
@@ -75,7 +86,7 @@ app.use('/api/comments', commentRoutes)
 
 app.use(
 	cors({
-		origin: "http://localhost:3001",
+		origin: "https://rcdso-frontend.vercel.app",
 		methods: "GET,POST,PUT,DELETE",
 		credentials: true
 	})
