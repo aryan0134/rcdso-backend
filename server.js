@@ -26,7 +26,7 @@ const path = require('path')
 const app=express()
 const db = process.env.DATABASE
 const port = process.env.PORT
-app.use('/', express.static(path.join(__dirname, 'public')))
+// app.use('/', express.static(path.join(__dirname, 'public')))
 
 
 
