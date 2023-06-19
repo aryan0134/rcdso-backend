@@ -30,13 +30,13 @@ const port = process.env.PORT
 app.use('/', express.static(path.join(__dirname, 'public')))
 app.use(cors())
 
-const corsOptions = {
+const corsOption = {
   origin: 'https://www.rcdso.in/', // Replace with your frontend domain
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization'],
 };
 
-app.use(cors(corsOptions));
+app.use(cors(corsOption));
 
 
 
