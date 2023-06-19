@@ -1,5 +1,5 @@
 const allowedOrigins = [
-    'https://rcdso-frontend.onrender.com/'
+    'https://www.rcdso.in/'
 ]
 
 module.exports = allowedOrigins
