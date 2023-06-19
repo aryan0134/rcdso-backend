@@ -35,7 +35,7 @@ app.use('/', express.static(path.join(__dirname, 'public')))
 
 app.use(bodyParser.json({limit: '50mb'}));
 app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
-app.use(cors(corsOptions))
+// app.use(cors(corsOptions))
 app.use(express.json())
 
 app.use((req, res, next) => {
@@ -51,15 +51,15 @@ app.use(
 		maxAge: 24 * 60 * 60 * 100,
 	})
 );
- // app.use((req, res, next) => {
- //    res.setHeader("Access-Control-Allow-Origin", "https://www.rcdso.in/");
- //    res.setHeader('Access-Control-Allow-Credentials', true);
- //    res.header(
- //      "Access-Control-Allow-Headers",
- //      "Origin, X-Requested-With, Content-Type, Accept"
- //    );
- //    next();
- //  });
+ app.use((req, res, next) => {
+    res.setHeader("Access-Control-Allow-Origin", "https://www.rcdso.in/");
+    res.setHeader('Access-Control-Allow-Credentials', true);
+    res.header(
+      "Access-Control-Allow-Headers",
+      "Origin, X-Requested-With, Content-Type, Accept"
+    );
+    next();
+  });
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -78,13 +78,13 @@ app.use('/api/blogs', blogRoutes)
 app.use('/api/allblogs', allBlogRoutes)
 app.use('/api/comments', commentRoutes)
 
-// app.use(
-// 	cors({
-// 		origin: "https://www.rcdso.in/",
-// 		methods: "GET,POST,PUT,DELETE",
-// 		credentials: true
-// 	})
-// );
+app.use(
+	cors({
+		origin: "https://www.rcdso.in/",
+		methods: "GET,POST,PUT,DELETE",
+		credentials: true
+	})
+);
 
 app.all('*', (req, res) => {
     res.status(404)
