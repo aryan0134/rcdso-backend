@@ -4,7 +4,7 @@ const bcrypt = require('bcrypt');
 const mongoose = require('mongoose')
 
 const createToken = (_id) => {
-    return jwt.sign({_id}, process.env.SECRET , { expiresIn: '2d'})
+    return jwt.sign({_id}, process.env.SECRET , { expiresIn: '30d'})
 }
 
 // Login User
