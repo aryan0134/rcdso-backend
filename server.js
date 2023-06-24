@@ -17,6 +17,7 @@ const allClientsRoutes = require('./routes/allClientsRoutes')
 const allBlogRoutes = require('./routes/allBlogRoutes')
 const blogRoutes = require('./routes/blogRoutes')
 const commentRoutes = require('./routes/commentRoutes')
+const commentPostRoutes = require('./routes/commentPostRoutes')
 const root = require('./routes/root')
 const bodyParser = require('body-parser');
 const path = require('path')
@@ -93,6 +94,7 @@ app.use('/api/clients', clientsRoutes)
 app.use('/api/blogs', blogRoutes)
 app.use('/api/allblogs', allBlogRoutes)
 app.use('/api/comments', commentRoutes)
+app.use('/api/commentspost', commentPostRoutes)
 
 // app.use(
 // 	cors({
