@@ -5,7 +5,7 @@ const Blog = require('../models/blogModel')
 const getComments = async (req, res) => {
     const postId = req.params.postId;
   
-    await Comment.find({ post: postId })
+    await Comment.find({ posting: postId })
       .then((comments) => {
         res.json(comments);
       })
