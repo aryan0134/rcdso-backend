@@ -28,7 +28,7 @@ const createComments = async (req, res) => {
     .then((comment) => {
         // Update the blog post with the comment's ID
         Blog.findByIdAndUpdate(
-          post,
+          posting,
           { $push: { comments: comment._id } },
           { new: true }
         )
