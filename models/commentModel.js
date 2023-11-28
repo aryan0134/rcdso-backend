@@ -6,7 +6,7 @@ const commentSchema = new Schema({
     text: String,
     author: String,
     timestamp: { type: Date, default: Date.now },
-    post: { type: mongoose.Schema.Types.ObjectId, ref: 'Post' }
+    posting: { type: mongoose.Schema.Types.ObjectId, ref: 'Post' }
   });
   
 
