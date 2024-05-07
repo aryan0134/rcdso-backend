@@ -5,7 +5,7 @@ const Blog = require('../models/blogModel')
 const getComments = async (req, res) => {
     const postId = req.params.postId;
   
-    await Comment.find({ post: postId })
+    await Comment.find({ posting: postId })
       .then((comments) => {
         res.json(comments);
       })
@@ -16,19 +16,19 @@ const getComments = async (req, res) => {
 }
 
 const createComments = async (req, res) => {
-    const { text, author, post } = req.body;
+    const { text, author, posting } = req.body;
   
     const newComment = new Comment({
       text,
       author,
-      post
+      posting
     });
   
     await newComment.save()
     .then((comment) => {
         // Update the blog post with the comment's ID
         Blog.findByIdAndUpdate(
-          post,
+          posting,
           { $push: { comments: comment._id } },
           { new: true }
         )

@@ -18,32 +18,41 @@ const allBlogRoutes = require('./routes/allBlogRoutes')
 const blogRoutes = require('./routes/blogRoutes')
 const commentRoutes = require('./routes/commentRoutes')
 const commentPostRoutes = require('./routes/commentPostRoutes')
+const root = require('./routes/root')
 const bodyParser = require('body-parser');
 const path = require('path')
+const corsOptions = require('./corsOptions')
 
 // Express App
 
 const app=express()
 const db = process.env.DATABASE
 const port = process.env.PORT
-// app.use('/', express.static(path.join(__dirname, 'public')))
+app.use('/', express.static(path.join(__dirname, 'public')))
+app.use(cors())
 
-// app.all('*', (req, res) => {
-//     res.status(404)
-//     if (req.accepts('html')) {
-//         res.sendFile(path.join(__dirname, 'views', '404.html'))
-//     } else if (req.accepts('json')) {
-//         res.json({ message: '404 Not Found' })
-//     } else {
-//         res.type('txt').send('404 Not Found')
-//     }
-// })
+const corsOption = {
+  origin: 'https://www.rcdso.in/', // Replace with your frontend domain
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+};
+
+app.use(cors(corsOption));
+
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', 'https://www.rcdso.in'); // Replace with your allowed origin(s)
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  next();
+});
+
+
 
 //Middleware
 
 app.use(bodyParser.json({limit: '50mb'}));
 app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
-
+// app.use(cors(corsOptions))
 app.use(express.json())
 
 app.use((req, res, next) => {
@@ -59,21 +68,22 @@ app.use(
 		maxAge: 24 * 60 * 60 * 100,
 	})
 );
- app.use((req, res, next) => {
-    res.setHeader("Access-Control-Allow-Origin", "https://localhost:3001");
-    res.setHeader('Access-Control-Allow-Credentials', true);
-    res.header(
-      "Access-Control-Allow-Headers",
-      "Origin, X-Requested-With, Content-Type, Accept"
-    );
-    next();
-  });
+ // app.use((req, res, next) => {
+ //    res.setHeader("Access-Control-Allow-Origin", "https://www.rcdso.in/");
+ //    res.setHeader('Access-Control-Allow-Credentials', true);
+ //    res.header(
+ //      "Access-Control-Allow-Headers",
+ //      "Origin, X-Requested-With, Content-Type, Accept"
+ //    );
+ //    next();
+ //  });
 
 app.use(passport.initialize());
 app.use(passport.session());
 
 //Routes
 
+app.use('/', root)
 app.use('/api/messages' , messageRoutes)
 app.use("/auth", authRoute);
 app.use('/api/user', userRoutes)
@@ -86,13 +96,24 @@ app.use('/api/allblogs', allBlogRoutes)
 app.use('/api/comments', commentRoutes)
 app.use('/api/commentspost', commentPostRoutes)
 
-app.use(
-	cors({
-		origin: "https://localhost:3001",
-		methods: "GET,POST,PUT,DELETE",
-		credentials: true
-	})
-);
+// app.use(
+// 	cors({
+// 		origin: "https://www.rcdso.in/",
+// 		methods: "GET,POST,PUT,DELETE",
+// 		credentials: true
+// 	})
+// );
+
+app.all('*', (req, res) => {
+    res.status(404)
+    if (req.accepts('html')) {
+        res.sendFile(path.join(__dirname, 'views', '404.html'))
+    } else if (req.accepts('json')) {
+        res.json({ message: '404 Not Found' })
+    } else {
+        res.type('txt').send('404 Not Found')
+    }
+})
 
 //connecting to MongoDB
 
