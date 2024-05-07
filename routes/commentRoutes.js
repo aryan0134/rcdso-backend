@@ -11,7 +11,7 @@ const router = express.Router()
 router.get('/:postId', getComments )
 
 //POST a new comment
-router.post('/' , createComments )
+// router.post('/' , createComments )
 
 //DELETE a comment
 router.delete('/:id' , deleteComment )

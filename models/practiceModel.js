@@ -22,11 +22,11 @@ const practiceSchema = new Schema({
         type: String
     },
     price: {
-        type: Number,
+        type: String,
         required: true
     },
     production: {
-        type: Number,
+        type: String,
         required: true
     },
     phoneNo: {

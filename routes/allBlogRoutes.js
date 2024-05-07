@@ -6,7 +6,7 @@ const requireAuth = require('../middleware/requireAuth')
 const router = express.Router()
 
 //Require Auth For All Practices
-router.use(requireAuth)
+// router.use(requireAuth)
 
 
 //Get all blog
